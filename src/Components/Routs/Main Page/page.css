@@ -1,0 +1,25 @@
+.container-fluid{
+    background-image: url('../../Assets/home-img.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: auto;
+    padding-top: 2pc;
+    color: #fff;
+}
+
+.sidebar{
+    height: 100vh;
+    border-right: 1px solid #E2E700;
+}
+
+.nav-item{
+    gap: 20pc;
+}
+.nav-link{
+    font-size: 20px;
+}
+
+.nav-item.active .nav-link {
+    color: #E2E700;
+    border-bottom: 2px solid #E2E700; /* Added border-bottom */
+}

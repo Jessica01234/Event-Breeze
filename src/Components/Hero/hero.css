@@ -1,0 +1,27 @@
+.heroContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 50pc;
+}
+
+.h1container{
+    padding-top: 2pc;
+}
+
+.heroImgContainer{
+    display: flex;
+    justify-content: center;
+}
+
+.heroh1{
+    font-size: 70px;
+    padding: 20px 0 0 2px;
+    text-align: center;
+}
+
+.heroh1 span{
+    border: 1px solid #E2E700;
+    border-radius: 50%;
+    padding: 5px 15px;
+}

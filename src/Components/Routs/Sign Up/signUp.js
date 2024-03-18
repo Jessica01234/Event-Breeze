@@ -29,7 +29,7 @@ function SignUp() {
         const data = await response.json();
         console.log('User signed up successfully:', data);
         // Redirect or perform any other actions here after successful sign-up
-        nav(`/creatEvent?Sname=${encodeURIComponent(usersDetails.email)}`);
+        nav(`/dashBoard?Sname=${encodeURIComponent(usersDetails.email)}`);
       } else {
         console.error('Failed to sign up:', response.statusText);
         // Handle error scenarios here

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import './createEvent.css';
 import { useNavigate } from "react-router-dom";
 import { Sidebar } from "../page";
-import { v4 as uuidv4 } from 'uuid'; // Importing UUID library
+import { v4 as uuidv4 } from 'uuid';
 
 
 function CreateEventForm() {
@@ -10,13 +10,13 @@ function CreateEventForm() {
   const [EventDescription, setEventDescription] = useState('');
   const [EventDate, setEventDate] = useState('');
   const [EventTime, setEventTime] = useState('');
-  const [EventImage, setEventImage] = useState(null); // Updated to store file object
+  const [EventImage, setEventImage] = useState(null); 
   const [FreeEntry, setFreeEntry] = useState('');
   const [TicketEntry, setTicketEntry] = useState(''); 
   const [PhisicalMode, setPhisicalMode] = useState(''); 
   const [VirtualMode, setVirtualMode] = useState(''); 
-  const [RegistrationLink, setRegistrationLink] = useState(''); // State to store the generated registration link
-  const [isLinkGenerated, setIsLinkGenerated] = useState(false); // State to track whether the link is generated or not
+  const [RegistrationLink, setRegistrationLink] = useState(''); 
+  const [isLinkGenerated, setIsLinkGenerated] = useState(false);
 
   const navigate = useNavigate();
 
@@ -27,23 +27,24 @@ function CreateEventForm() {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const registrationLink = generateUniqueLink(); // Generating a unique registration link
+  const registrationLink = generateUniqueLink(); // Generating a unique registration link
     setRegistrationLink(registrationLink); // Updating the state with the generated link
     setIsLinkGenerated(true); // Setting the flag to indicate that the link is generated
+    navigate('/eventLink', { state: { registrationLink } });
   };
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     
     if (file) {
-      setEventImage(file); // Update state with the selected file object
+      setEventImage(file);
     }
   };
 
   return(
     <>
       <div className="Container-fluid CEContainer col-md-9 col-8 ml-sm-auto col-lg-10 px-md-4">
-        <form onSubmit={handleSubmit} className="row CEForm">
+        <form onSubmit={handleSubmit} className=" CEForm">
           <h1>Create Event</h1>
           <input
             required
@@ -152,9 +153,10 @@ function CreateEventForm() {
         {isLinkGenerated && (
           <div>
             <h2>Registration Link:</h2>
-            <p>{RegistrationLink}</p>
+            <a href="dashboard">{RegistrationLink}</a>
           </div>
         )}
+
       </div>
     </>
   )

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./signUp.css";
+import axios from "axios";
+import { Spinner } from "react-bootstrap";
 
 function SignUp() {
   const [usersDetails, setUsersDetails] = useState({
@@ -8,45 +10,48 @@ function SignUp() {
     email: "",
     password: "",
   });
+  const [errorMsg,setErrorMsg] = useState("");
+  const [Loading,setLoading] = useState(false);
+
   const nav = useNavigate();
 
-  const handleClicked = async () => {
-    console.log('before catch');
-    try {
-      const response = await fetch('https://e-breeze-backend.vercel.app/api/v1/users', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          name: usersDetails.UserName,
-          email: usersDetails.email,
-          password: usersDetails.password
-        })
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log('User signed up successfully:', data);
-        // Redirect or perform any other actions here after successful sign-up
-        nav(`/dashBoard?Sname=${encodeURIComponent(usersDetails.email)}`);
-      } else {
-        console.error('Failed to sign up:', response.statusText);
-        // Handle error scenarios here
-      }
-    } catch (error) {
-
-      console.error('Error signing up:', error);
-      // Handle error scenarios here
+  const handleClicked =(event)=>{
+    event.preventDefault();
+    setLoading(true); // Set loading to true when the request is initiated
+    let data = {
+      name: usersDetails.UserName,
+      email: usersDetails.email,
+      password: usersDetails.password
     }
-    console.log('after fetch');
-  };
+    axios.post("https://e-breeze-backend.vercel.app/api/v1/users", data)
+    .then(response=>{
+        console.log(response);
+        setLoading(false);
+        console.log('done');
+        nav('/dashBoard');
+    })
+    .catch(err=>{
+      console.log(err);
+      if (err.response) {
+        setErrorMsg("No Server Response");
+        console.log(errorMsg);
+      } else if(err.response.status === 403 ){
+        setErrorMsg(err.response.data.message)
+        console.log(errorMsg);
+      } if(err.response.status === 400 ){
+        setErrorMsg('Invalid email or password')
+        console.log(errorMsg)
+      } 
+      setLoading(false); // Set loading to false when request is complete
+    })
+  }
+  
 
   return (
     <div className="signUpContainer">
-      <form className="formSignup">
-        <button className="signUpBtn">Sign Up</button>
-        <h5>Already have an account?<Link to={'/signIn'}>Sign in</Link> </h5>
+      <form className="formSignup col-md-6 col-10">
+        <button className="signUpBtn col-12">Sign Up</button>
+        <h5 className="col-12">Already have an account?<Link to={'/signIn'}>Sign in</Link> </h5>
 
         <input type="text" placeholder="Name" onChange={(e) => setUsersDetails({ ...usersDetails, UserName: e.target.value })} />
 
@@ -55,7 +60,13 @@ function SignUp() {
         <input type="password" placeholder="Password" onChange={(e) => setUsersDetails({ ...usersDetails, password: e.target.value })} />
 
         <p onClick={handleClicked}>Continue</p>
-        <button className="googleSignUpBtn">Sign Up with Google</button>
+        {Loading ? (
+          <Spinner animation="border" variant="warning" />
+        ) : (
+          <p>{errorMsg}</p>
+        )}
+
+        {/* <button className="googleSignUpBtn">Sign Up with Google</button> */}
       </form>
     </div>
   );

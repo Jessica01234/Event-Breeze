@@ -1,16 +1,24 @@
-.CEContainer{
-    /* background-image: url('../../../Assets/home-img.jpg'); */
-    /* margin-left: 15pc; */
+.CEForm{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2pc;
 }
 
-.CEForm{
-    gap: 2pc;
-    justify-content: center;
+.CEForm input{
+    background: #E2E700;
+}
+
+.CEForm input:hover{
+    cursor: pointer;
 }
 
 #EnameInput{
+    width: 90%;
     background: none;
     border: none;
+    border-bottom: 1px solid #E2E700;
 }
 
 #EdesInput{
@@ -40,4 +48,45 @@
     background: none;
     background-color: #E2E700;
     border-radius: 8px;
+    font-size: x-large;
+    height: 10vh;
 }
+
+.regLinkBtn:hover{
+    color: #fff;
+}
+
+/* STYLING THE EVENT LINK COMPONENET */
+
+.eventLinkMainContainer{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    padding: 12pc 3pc;
+}
+
+.eventLinkContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #171717;
+    border: 1px solid #E2E700;
+    border-radius: 10px;
+    width: 40%;
+    height: auto;
+}
+
+.eventLinkContainer h3{
+    display: flex;
+    justify-content: center;
+}
+
+.eventLinkContainer div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    border: 1px solid #E2E700;
+}
+
